@@ -3,7 +3,7 @@ from user.models import User
 
 
 class AstronomyShow(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, db_index=True)
     description = models.TextField()
 
     class Meta:
@@ -14,14 +14,14 @@ class AstronomyShow(models.Model):
 
 
 class ShowTheme(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, db_index=True)
 
     class Meta:
         verbose_name_plural = "ShowThemes"
 
 
 class PlanetariumDome(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, db_index=True)
     rows = models.IntegerField()
     seats_in_row = models.IntegerField()
 
@@ -41,9 +41,9 @@ class PlanetariumDome(models.Model):
 
 
 class ShowSession(models.Model):
-    astronomy_show = models.ForeignKey(AstronomyShow, on_delete=models.CASCADE)
-    planetarium_dome = models.ForeignKey(PlanetariumDome, on_delete=models.CASCADE)
-    show_time = models.DateTimeField()
+    astronomy_show = models.ForeignKey(AstronomyShow, on_delete=models.CASCADE, db_index=True)
+    planetarium_dome = models.ForeignKey(PlanetariumDome, on_delete=models.CASCADE, db_index=True)
+    show_time = models.DateTimeField(db_index=True)
 
     class Meta:
         verbose_name_plural = "ShowSessions"
@@ -53,20 +53,25 @@ class ShowSession(models.Model):
 
 
 class Ticket(models.Model):
-    seat = models.IntegerField()
-    show_session = models.ForeignKey(ShowSession, on_delete=models.CASCADE)
-    reservation = models.ForeignKey("Reservation", on_delete=models.CASCADE, null=True, related_name="ticket")
+    row = models.IntegerField(db_index=True)
+    seat = models.IntegerField(db_index=True)
+    show_session = models.ForeignKey(ShowSession, on_delete=models.CASCADE, db_index=True)
+    reservation = models.ForeignKey("Reservation", on_delete=models.CASCADE, null=True, related_name="ticket",
+                                    db_index=True)
 
     class Meta:
         verbose_name_plural = "Tickets"
+        constraints = [
+            models.UniqueConstraint(fields=["seat", "row"], name="unique_ticket_seat_and_row")
+        ]
 
     def __str__(self):
         return f"Ticket. Seat: {self.seat}, show session: {self.show_session}"
 
 
 class Reservation(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, db_index=True)
 
     class Meta:
         verbose_name_plural = "Reservations"
