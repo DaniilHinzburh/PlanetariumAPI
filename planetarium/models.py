@@ -78,5 +78,4 @@ class Reservation(models.Model):
     class Meta:
         verbose_name_plural = "Reservations"
 
-    def __str__(self):
-        return f"Reservation. Created at: {self.created_at}, user: {self.user.first_name} {self.user.last_name}"
+
