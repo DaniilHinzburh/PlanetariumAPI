@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'PlanetariumAPI',
     'planetarium',
-    'user'
+    'user',
+    'rest_framework'
 ]
 
 AUTH_USER_MODEL = 'user.User'
