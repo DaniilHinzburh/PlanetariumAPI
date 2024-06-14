@@ -1,13 +1,8 @@
 from planetarium.models import PlanetariumDome
 from planetarium.serializers import PlanetariumSerializer
-from rest_framework import generics
+from rest_framework import viewsets
 
 
-class PlanetariumDomeList(generics.ListCreateAPIView):
-    queryset = PlanetariumDome.objects.all()
-    serializer_class = PlanetariumSerializer
-
-
-class PlanetariumDomeDetail(generics.RetrieveUpdateDestroyAPIView):
+class PlanetariumDomeViewSet(viewsets.ModelViewSet):
     queryset = PlanetariumDome.objects.all()
     serializer_class = PlanetariumSerializer
