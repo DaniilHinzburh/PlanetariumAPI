@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from models import AstronomyShow, ShowTheme, PlanetariumDome, ShowSession, Ticket, Reservation
+from planetarium.models import AstronomyShow, ShowTheme, PlanetariumDome, ShowSession, Ticket, Reservation
 
 
 class PlanetariumSerializer(serializers.Serializer):
