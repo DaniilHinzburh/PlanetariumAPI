@@ -5,4 +5,4 @@ from planetarium.models import AstronomyShow, ShowTheme, PlanetariumDome, ShowSe
 class PlanetariumSerializer(serializers.ModelSerializer):
     class Meta:
         model = PlanetariumDome
-        fields = ("id", "name", "rows", "seats_in_row")
+        fields = ("id", "name", "rows", "seats_in_row", "category")

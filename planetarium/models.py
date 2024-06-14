@@ -28,6 +28,14 @@ class PlanetariumDome(models.Model):
     class Meta:
         verbose_name_plural = "PlanetariumDomes"
 
+    @property
+    def category(self):
+        if self.rows * self.seats_in_row <= 50:
+            return "small"
+        if 50 < self.rows * self.seats_in_row <= 100:
+            return "medium"
+        return "big"
+
     def __str__(self):
         return f"PlanetariumDome {self.name}, rows: {self.rows}, seats in row: {self.seats_in_row}"
 
