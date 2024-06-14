@@ -1,4 +1,6 @@
 from django.db import models
+
+from PlanetariumAPI import settings
 from user.models import User
 
 
@@ -71,7 +73,7 @@ class Ticket(models.Model):
 
 class Reservation(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, db_index=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, db_index=True)
 
     class Meta:
         verbose_name_plural = "Reservations"
