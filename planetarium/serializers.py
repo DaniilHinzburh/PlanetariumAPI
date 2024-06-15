@@ -18,6 +18,10 @@ class AstronomyShowListSerializer(AstronomyShowSerializer):
     show_themes = ShowThemeSerializer(many=True)
 
 
+class AstronomyShowRetrieveSerializer(AstronomyShowSerializer):
+    show_themes = ShowThemeSerializer(many=True)
+
+
 class PlanetariumDomeSerializer(serializers.ModelSerializer):
     class Meta:
         model = PlanetariumDome
