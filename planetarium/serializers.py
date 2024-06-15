@@ -23,7 +23,7 @@ class PlanetariumDomeSerializer(serializers.ModelSerializer):
 
 class ShowSessionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Session
+        model = ShowSession
         fields = ("id", "astronomy_show", "planetarium_dome", "show_time")
 
 
