@@ -22,6 +22,8 @@ class ShowTheme(models.Model):
     class Meta:
         verbose_name_plural = "ShowThemes"
 
+    def __str__(self):
+        return f"{self.name}"
 
 class PlanetariumDome(models.Model):
     name = models.CharField(max_length=255, db_index=True)
