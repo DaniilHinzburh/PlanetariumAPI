@@ -1,6 +1,11 @@
-from django.contrib.sessions.models import Session
 from rest_framework import serializers
 from planetarium.models import AstronomyShow, ShowTheme, PlanetariumDome, ShowSession, Ticket, Reservation
+
+
+class ShowThemeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ShowTheme
+        fields = ("id", "name")
 
 
 class AstronomyShowSerializer(serializers.ModelSerializer):
@@ -9,10 +14,8 @@ class AstronomyShowSerializer(serializers.ModelSerializer):
         fields = ("id", "title", "description", "show_themes")
 
 
-class ShowThemeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ShowTheme
-        fields = ("id", "name")
+class AstronomyShowListSerializer(AstronomyShowSerializer):
+    show_themes = ShowThemeSerializer(many=True)
 
 
 class PlanetariumDomeSerializer(serializers.ModelSerializer):
@@ -27,10 +30,19 @@ class ShowSessionSerializer(serializers.ModelSerializer):
         fields = ("id", "astronomy_show", "planetarium_dome", "show_time")
 
 
+class ShowSessionListSerializer(ShowSessionSerializer):
+    planetarium_dome = PlanetariumDomeSerializer()
+    astronomy_show = AstronomyShowListSerializer()
+
+
 class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
         fields = ("id", "row", "seat", "show_session", "reservation")
+
+
+class TicketListSerializer(TicketSerializer):
+    show_session = ShowSessionListSerializer()
 
 
 class ReservationSerializer(serializers.ModelSerializer):
