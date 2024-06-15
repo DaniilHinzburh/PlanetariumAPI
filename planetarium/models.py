@@ -25,6 +25,7 @@ class ShowTheme(models.Model):
     def __str__(self):
         return f"{self.name}"
 
+
 class PlanetariumDome(models.Model):
     name = models.CharField(max_length=255, db_index=True)
     rows = models.IntegerField()
