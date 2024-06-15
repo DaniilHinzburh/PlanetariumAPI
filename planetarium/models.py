@@ -13,7 +13,7 @@ class AstronomyShow(models.Model):
         verbose_name_plural = "AstronomyShows"
 
     def __str__(self):
-        return f"{self.title}, {self.description}"
+        return f"AstronomyShow {self.title}, {self.description}"
 
 
 class ShowTheme(models.Model):
@@ -43,7 +43,7 @@ class PlanetariumDome(models.Model):
         return "big"
 
     def __str__(self):
-        return f"{self.name}, rows: {self.rows}, seats in row: {self.seats_in_row}"
+        return f"PlanetariumDome {self.name}, rows: {self.rows}, seats in row: {self.seats_in_row}"
 
 
 class ShowSession(models.Model):
@@ -55,7 +55,7 @@ class ShowSession(models.Model):
         verbose_name_plural = "ShowSessions"
 
     def __str__(self):
-        return f"astronomy show: {self.astronomy_show.title}, planetarium dome: {self.planetarium_dome.name}, showtime: {self.show_time}, rows: {self.planetarium_dome.rows}, seats in row: {self.planetarium_dome.seats_in_row}"
+        return f"ShowSession, astronomy show: {self.astronomy_show.title}, planetarium dome: {self.planetarium_dome.name}, show time: {self.show_time}"
 
 
 class Ticket(models.Model):
@@ -72,7 +72,7 @@ class Ticket(models.Model):
         ]
 
     def __str__(self):
-        return f"Seat: {self.seat}, show session: {self.show_session}, row: {self.row}, seat: {self.seat}"
+        return f"Ticket. Seat: {self.seat}, show session: {self.show_session}"
 
 
 class Reservation(models.Model):
@@ -83,4 +83,4 @@ class Reservation(models.Model):
         verbose_name_plural = "Reservations"
 
     def __str__(self):
-        return f"{self.created_at}, user: {self.user}"
+        return f"Reservation: {self.created_at}, user: {self.user}"
