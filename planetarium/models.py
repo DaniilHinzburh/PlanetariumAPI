@@ -55,7 +55,7 @@ class ShowSession(models.Model):
         verbose_name_plural = "ShowSessions"
 
     def __str__(self):
-        return f"astronomy show: {self.astronomy_show.title}, planetarium dome: {self.planetarium_dome.name}, showtime: {self.show_time}"
+        return f"astronomy show: {self.astronomy_show.title}, planetarium dome: {self.planetarium_dome.name}, showtime: {self.show_time}, rows: {self.planetarium_dome.rows}, seats in row: {self.planetarium_dome.seats_in_row}"
 
 
 class Ticket(models.Model):
