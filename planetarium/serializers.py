@@ -34,9 +34,18 @@ class ShowSessionSerializer(serializers.ModelSerializer):
         fields = ("id", "astronomy_show", "planetarium_dome", "show_time")
 
 
-class ShowSessionListSerializer(ShowSessionSerializer):
-    planetarium_dome = PlanetariumDomeSerializer()
+class ShowSessionListSerializer(serializers.ModelSerializer):
     astronomy_show = AstronomyShowListSerializer()
+    planetarium_dome_name = serializers.CharField(source="planetarium_dome.name")
+    planetarium_dome_num_seats = serializers.SerializerMethodField()
+    planetarium_dome_category = serializers.CharField(source="planetarium_dome.category")
+
+    class Meta:
+        model = ShowSession
+        fields = ("id", "astronomy_show","show_time","planetarium_dome_name", "planetarium_dome_num_seats","planetarium_dome_category")
+
+    def get_planetarium_dome_num_seats(self, obj):
+        return obj.planetarium_dome.rows * obj.planetarium_dome.seats_in_row
 
 
 class TicketSerializer(serializers.ModelSerializer):
