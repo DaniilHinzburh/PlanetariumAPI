@@ -7,6 +7,7 @@ from user.models import User
 class AstronomyShow(models.Model):
     title = models.CharField(max_length=255, db_index=True)
     description = models.TextField()
+    show_themes = models.ManyToManyField("ShowTheme", null=True, related_name="astronomy_shows")
 
     class Meta:
         verbose_name_plural = "AstronomyShows"
@@ -77,5 +78,3 @@ class Reservation(models.Model):
 
     class Meta:
         verbose_name_plural = "Reservations"
-
-
