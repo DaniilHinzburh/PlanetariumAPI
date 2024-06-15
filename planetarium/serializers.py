@@ -1,3 +1,4 @@
+from django.contrib.sessions.models import Session
 from rest_framework import serializers
 from planetarium.models import AstronomyShow, ShowTheme, PlanetariumDome, ShowSession, Ticket, Reservation
 
@@ -18,6 +19,12 @@ class PlanetariumDomeSerializer(serializers.ModelSerializer):
     class Meta:
         model = PlanetariumDome
         fields = ("id", "name", "rows", "seats_in_row", "category")
+
+
+class ShowSessionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Session
+        fields = ("id", "astronomy_show", "planetarium_dome", "show_time")
 
 
 class TicketSerializer(serializers.ModelSerializer):
