@@ -29,7 +29,7 @@ class AstronomyShowViewSet(viewsets.ModelViewSet):
             show_themes = self._params_to_int(show_themes)
             queryset = queryset.filter(show_themes__id__in=show_themes)
         if self.action in ("list", "retrieve"):
-            return queryset.prefetch_related("show_themes")
+            return queryset.prefetch_related("show_themes").distinct()
         return queryset
 
 
