@@ -1,5 +1,7 @@
 from django.db import transaction
 from rest_framework import serializers
+from rest_framework.validators import UniqueTogetherValidator
+
 from planetarium.models import AstronomyShow, ShowTheme, PlanetariumDome, ShowSession, Ticket, Reservation
 
 
@@ -58,6 +60,12 @@ class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
         fields = ("id", "row", "seat", "show_session", "reservation")
+        validators = [
+            UniqueTogetherValidator(
+                queryset= Ticket.objects.all(),
+                fields=["row", "seat", "show_session"]
+            )
+        ]
 
 
 class TicketListSerializer(TicketSerializer):
