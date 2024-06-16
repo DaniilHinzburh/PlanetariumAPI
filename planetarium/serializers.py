@@ -60,12 +60,18 @@ class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
         fields = ("id", "row", "seat", "show_session", "reservation")
-        validators = [
-            UniqueTogetherValidator(
-                queryset= Ticket.objects.all(),
-                fields=["row", "seat", "show_session"]
-            )
-        ]
+
+    def validate(self, attrs):
+        Ticket.validate_row(
+            attrs["row"],
+            attrs["show_session"].planetarium_dome.rows,
+            serializers.ValidationError
+        )
+        Ticket.validate_seat(
+            attrs["seat"],
+            attrs["show_session"].planetarium_dome.seats_in_row,
+            serializers.ValidationError
+        )
 
 
 class TicketListSerializer(TicketSerializer):
