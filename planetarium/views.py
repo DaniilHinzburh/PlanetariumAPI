@@ -3,7 +3,8 @@ from django.db.models import Count, F
 from planetarium.models import AstronomyShow, ShowTheme, PlanetariumDome, ShowSession, Ticket, Reservation
 from planetarium.serializers import AstronomyShowSerializer, ShowThemeSerializer, PlanetariumDomeSerializer, \
     ShowSessionSerializer, TicketSerializer, ReservationSerializer, ShowSessionListSerializer, TicketListSerializer, \
-    AstronomyShowListSerializer, AstronomyShowRetrieveSerializer, ShowSessionRetrieveSerializer
+    AstronomyShowListSerializer, AstronomyShowRetrieveSerializer, ShowSessionRetrieveSerializer, \
+    ReservationListSerializer
 from rest_framework import viewsets
 
 
@@ -83,7 +84,7 @@ class TicketViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = self.queryset
         if self.action == "list":
-            return queryset.select_related()
+            queryset = queryset.select_related()
         return queryset
 
 
@@ -92,7 +93,14 @@ class ReservationViewSet(viewsets.ModelViewSet):
     serializer_class = ReservationSerializer
 
     def get_queryset(self):
-        return self.queryset.filter(user=self.request.user)
+        queryset = self.queryset.filter(user=self.request.user)
+
+        return queryset
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+    def get_serializer_class(self):
+        if self.action in ("list", "retrieve"):
+            return ReservationListSerializer
+        return ReservationSerializer
