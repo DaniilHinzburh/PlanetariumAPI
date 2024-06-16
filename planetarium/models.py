@@ -68,7 +68,7 @@ class Ticket(models.Model):
     class Meta:
         verbose_name_plural = "Tickets"
         constraints = [
-            models.UniqueConstraint(fields=["seat", "row"], name="unique_ticket_seat_and_row")
+            models.UniqueConstraint(fields=["seat", "row", "show_session"], name="unique_ticket_seat_and_row")
         ]
 
     def __str__(self):
