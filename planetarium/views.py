@@ -1,3 +1,5 @@
+from django.db.models import Count, F
+
 from planetarium.models import AstronomyShow, ShowTheme, PlanetariumDome, ShowSession, Ticket, Reservation
 from planetarium.serializers import AstronomyShowSerializer, ShowThemeSerializer, PlanetariumDomeSerializer, \
     ShowSessionSerializer, TicketSerializer, ReservationSerializer, ShowSessionListSerializer, TicketListSerializer, \
@@ -56,8 +58,16 @@ class ShowSessionViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = self.queryset
-        if self.action in ("list", "retrieve"):
-            return queryset.select_related()
+        if self.action in "retrieve":
+            queryset = queryset.select_related()
+        elif self.action in "list":
+            queryset = (
+                queryset.select_related().annotate(tickets_taken=Count("tickets"))
+            )
+            seats_in_planetarium_dome = F("planetarium_dome__rows") * F("planetarium_dome__seats_in_row")
+            queryset = (
+                queryset.select_related().annotate(tickets_available=seats_in_planetarium_dome - Count("tickets"))
+            )
         return queryset
 
 
