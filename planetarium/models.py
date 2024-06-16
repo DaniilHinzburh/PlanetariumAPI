@@ -67,7 +67,7 @@ class Ticket(models.Model):
 
     class Meta:
         verbose_name_plural = "Tickets"
-        unique_together = ("id", "show_session", "seat", "row")
+        unique_together = ("seat", "row", "show_session")
 
     def __str__(self):
         return f"Seat: {self.seat}, show session: {self.show_session}, row: {self.row}, seat: {self.seat}"
