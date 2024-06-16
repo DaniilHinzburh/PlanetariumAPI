@@ -72,6 +72,24 @@ class Ticket(models.Model):
     def __str__(self):
         return f"Seat: {self.seat}, show session: {self.show_session}, row: {self.row}, seat: {self.seat}"
 
+    @staticmethod
+    def validate_row(row: int, num_rows: int, error_to_raise):
+        if not (1 <= row <= num_rows):
+            raise error_to_raise(
+                {"row": f"row must be between in range [1,{num_rows}] not {row}"}
+            )
+
+    @staticmethod
+    def validate_seat(seat: int, num_seats: int, error_to_raise):
+        if not (1 <= seat <= num_seats):
+            raise error_to_raise(
+                {"seat": f"seat must be between in range [1,{num_seats}] not {seat}"}
+            )
+
+    def clean(self):
+        Ticket.validate_row(self.row, self.show_session.planetarium_dome.rows, ValueError)
+        Ticket.validate_seat(self.seat, self.show_session.planetarium_dome.seats_in_row, ValueError)
+
 
 class Reservation(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
