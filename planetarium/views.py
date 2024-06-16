@@ -9,6 +9,10 @@ class AstronomyShowViewSet(viewsets.ModelViewSet):
     queryset = AstronomyShow.objects.all()
     serializer_class = AstronomyShowSerializer
 
+    @staticmethod
+    def _params_to_int(query_string):
+        return [int(str_id) for str_id in query_string.split(",")]
+
     def get_serializer_class(self):
         if self.action == "list":
             return AstronomyShowListSerializer
@@ -18,6 +22,12 @@ class AstronomyShowViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = self.queryset
+
+        show_themes = self.request.query_params.get("show_themes")
+
+        if show_themes:
+            show_themes = self._params_to_int(show_themes)
+            queryset = queryset.filter(show_themes__id__in=show_themes)
         if self.action in ("list", "retrieve"):
             return queryset.prefetch_related("show_themes")
         return queryset
