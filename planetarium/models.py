@@ -17,7 +17,7 @@ class AstronomyShow(models.Model):
 
 
 class ShowTheme(models.Model):
-    name = models.CharField(max_length=255, db_index=True)
+    name = models.CharField(max_length=255, unique=True, db_index=True)
 
     class Meta:
         verbose_name_plural = "ShowThemes"
