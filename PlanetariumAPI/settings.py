@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'PlanetariumAPI',
     'planetarium',
     'user',
-    'rest_framework'
+    'rest_framework',
+    'rest_framework.authtoken'
 ]
 
 AUTH_USER_MODEL = 'user.User'
