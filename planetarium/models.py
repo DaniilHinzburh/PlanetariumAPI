@@ -1,13 +1,21 @@
+import pathlib
+import uuid
 from django.db import models
-
+from django.utils.text import slugify
 from PlanetariumAPI import settings
 from user.models import User
+
+
+def astronomy_show_image_path(instance: "AstronomyShow", filename: str) -> pathlib.Path:
+    filename = f"{slugify(instance.title)} - {uuid.uuid4()}" + pathlib.Path(filename).suffix
+    return pathlib.Path("upload/astronomy_shows") / pathlib.Path(filename)
 
 
 class AstronomyShow(models.Model):
     title = models.CharField(max_length=255, db_index=True)
     description = models.TextField()
     show_themes = models.ManyToManyField("ShowTheme", null=True, related_name="astronomy_shows")
+    image = models.ImageField(null=True, upload_to=astronomy_show_image_path)
 
     class Meta:
         verbose_name_plural = "AstronomyShows"
