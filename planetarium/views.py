@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework.authentication import TokenAuthentication
 from rest_framework import viewsets
 from django.db.models import Count, F
@@ -39,6 +40,19 @@ class AstronomyShowViewSet(viewsets.ModelViewSet):
         if self.action in ("list", "retrieve"):
             return queryset.prefetch_related("show_themes").distinct()
         return queryset
+
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                "show_themes",
+                type={"type": "list", "items": {"type": "number"}},
+                description="Filter by show_themes id  (/?show_themes=1,2)"
+            )
+        ]
+    )
+    def list(self, request, *args, **kwargs):
+        """Get list of all AstronomyShows"""
+        return super().list(request, *args, **kwargs)
 
 
 class ShowThemeViewSet(viewsets.ModelViewSet):

@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'planetarium',
     'user',
     'rest_framework',
-    'rest_framework.authtoken'
+    'rest_framework.authtoken',
+    'drf_spectacular'
 ]
 
 AUTH_USER_MODEL = 'user.User'
@@ -103,6 +104,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
@@ -127,3 +132,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 MEDIA_URL = '/media/'
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Planetarium API',
+    'DESCRIPTION': 'Reservation ticket for your show sessions',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'SWAGGER_UI_SETTINGS': {
+        'deepLinking': True,
+        'defaultModelRendering': 'model',
+        'defaultModelsExpandDepth': 2,
+        'defaultModelExpandDepth': 2,
+    }
+}
