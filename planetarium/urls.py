@@ -6,11 +6,11 @@ from rest_framework import routers
 app_name = "planetarium"
 
 router = routers.DefaultRouter()
-router.register("astronomy_shows", AstronomyShowViewSet, basename="astronomy_shows_list")
-router.register("show_themes", ShowThemeViewSet, basename="show_themes_list")
-router.register("planetarium_domes", PlanetariumDomeViewSet, basename="planetarium_domes_list")
-router.register("show_sessions", ShowSessionViewSet, basename="show_sessions_list")
-router.register("tickets", TicketViewSet, basename="tickets_list")
-router.register("reservations", ReservationViewSet, basename="reservations_list")
+router.register("astronomy_shows", AstronomyShowViewSet)
+router.register("show_themes", ShowThemeViewSet)
+router.register("planetarium_domes", PlanetariumDomeViewSet)
+router.register("show_sessions", ShowSessionViewSet)
+router.register("tickets", TicketViewSet)
+router.register("reservations", ReservationViewSet)
 
 urlpatterns = router.urls
