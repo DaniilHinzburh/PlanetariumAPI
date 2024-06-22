@@ -15,7 +15,6 @@ from planetarium.permissions import IsAdminAll_or_IsAuthenticatedReadOnly, IsAut
 class AstronomyShowViewSet(viewsets.ModelViewSet):
     queryset = AstronomyShow.objects.all()
     serializer_class = AstronomyShowSerializer
-    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAdminAll_or_IsAuthenticatedReadOnly,)
 
     @staticmethod
@@ -58,21 +57,18 @@ class AstronomyShowViewSet(viewsets.ModelViewSet):
 class ShowThemeViewSet(viewsets.ModelViewSet):
     queryset = ShowTheme.objects.all()
     serializer_class = ShowThemeSerializer
-    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAdminAll_or_IsAuthenticatedReadOnly,)
 
 
 class PlanetariumDomeViewSet(viewsets.ModelViewSet):
     queryset = PlanetariumDome.objects.all()
     serializer_class = PlanetariumDomeSerializer
-    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAdminAll_or_IsAuthenticatedReadOnly,)
 
 
 class ShowSessionViewSet(viewsets.ModelViewSet):
     queryset = ShowSession.objects.all()
     serializer_class = ShowSessionSerializer
-    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAdminAll_or_IsAuthenticatedReadOnly,)
 
     def get_serializer_class(self):
@@ -100,7 +96,6 @@ class ShowSessionViewSet(viewsets.ModelViewSet):
 class TicketViewSet(viewsets.ModelViewSet):
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
-    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticatedReadOnly,)
 
     def get_serializer_class(self):
@@ -118,7 +113,6 @@ class TicketViewSet(viewsets.ModelViewSet):
 class ReservationViewSet(viewsets.ModelViewSet):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
-    authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):

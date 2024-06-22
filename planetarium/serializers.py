@@ -81,6 +81,7 @@ class TicketSerializer(serializers.ModelSerializer):
             attrs["show_session"].planetarium_dome.seats_in_row,
             serializers.ValidationError
         )
+        return attrs
 
 
 class TicketListSerializer(TicketSerializer):
