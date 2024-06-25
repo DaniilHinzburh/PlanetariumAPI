@@ -9,9 +9,8 @@ services:
     volumes:
       - ./:/docker_planetarium
       - my_media:/files/media
-    command: >
-      sh -c "python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8000"
+
+    command: sh -c 'python manage.py migrate && python manage.py loaddata initial_data && python manage.py runserver 0.0.0.0:8000'
     depends_on:
       - db
 
