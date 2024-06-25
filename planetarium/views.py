@@ -107,7 +107,9 @@ class TicketViewSet(viewsets.ModelViewSet):
         queryset = self.queryset
         if self.action == "list":
             queryset = queryset.select_related()
-        return queryset.filter(reservation__user=self.request.user)
+        if not self.request.user.is_staff:
+            return queryset.filter(reservation__user=self.request.user)
+        return queryset
 
 
 class ReservationViewSet(viewsets.ModelViewSet):
@@ -116,7 +118,9 @@ class ReservationViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
-        queryset = self.queryset.filter(user=self.request.user)
+        queryset = self.queryset
+        if not self.request.user.is_staff:
+            return queryset.filter(reservation__user=self.request.user)
         return queryset
 
     def perform_create(self, serializer):
