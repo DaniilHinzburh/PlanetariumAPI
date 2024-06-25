@@ -308,5 +308,17 @@
       "last_name": "admin",
       "is_staff": 1
     }
+  },
+  {
+    "model": "user.User",
+    "pk": 1,
+    "fields": {
+      "email": "user@gmail.com",
+      "username": "user",
+      "password": "pbkdf2_sha256$600000$OyzyKeFzi43SkP7UHgw62x$jV/dKvykivAlWLxw2nGkAfAgAdWz0cJaoIhrfoRLaRU=",
+      "first_name": "user",
+      "last_name": "user",
+      "is_staff": 2
+    }
   }
 ]
