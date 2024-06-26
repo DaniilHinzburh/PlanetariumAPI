@@ -306,7 +306,8 @@
       "password": "pbkdf2_sha256$600000$YByltWcdAmpVMIYBihGBfW$TX7m4sBdKhxUTyMCn48uwNF7hiRS6i2J1mkIapaY0ws=",
       "first_name": "admin",
       "last_name": "admin",
-      "is_staff": 1
+      "is_staff": 1,
+      "is_superuser": 1
     }
   },
   {
